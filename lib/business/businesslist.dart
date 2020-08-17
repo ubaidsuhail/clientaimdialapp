@@ -90,7 +90,7 @@ class _BusinessListState extends State<BusinessList> {
 
            GestureDetector(
                onTap: (){
-                 print("add");
+                 Navigator.pushNamed(context, 'BusinessNames');
                },
                child:Container(
                  margin: EdgeInsets.only(top: 35.0),
