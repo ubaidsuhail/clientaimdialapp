@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
 
-class BusinessOutsideLocation extends StatefulWidget {
+
+class BusinessRegion extends StatefulWidget {
   @override
-  _BusinessOutsideLocationState createState() => _BusinessOutsideLocationState();
+  _BusinessRegionState createState() => _BusinessRegionState();
 }
 
-class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
-  int groupValue = 0;
+class _BusinessRegionState extends State<BusinessRegion> {
+  String _selected="Pakistan";
+  List<Map<String,dynamic>> countryList = [
+    {
+      "country":"Pakistan",
+    },
+    {
+      "country":"Saudi Arabia",
+    },
+    {
+      "country":"turkey",
+    },
+    {
+      "country":"Albania",
+    },
+    {
+      "country":"Argentina",
+    },
+    {
+      "country":"Australia",
+    },
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,69 +57,74 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Do you also serve customers outside this location?",style: TextStyle(fontSize: 23.0,wordSpacing: 1.0),),
+                    child:Text("What region is your business based in?",style: TextStyle(fontSize: 27.0),),
                   ),
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left:25.0,top: 18.0,right: 14.0),
-                          child:Text("For example, if you visit or deliver to your customers,you can let them know where you are willing to go",style: TextStyle(color: Colors.black54,wordSpacing: 1.2,fontSize: 16.0),)
+                        width: MediaQuery.of(context).size.width*0.75,
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.16,top: 40.0),
+                        child: Text("Phone number",style: TextStyle(color: Colors.black54,fontSize: 13.0),),
                       ),
-
-                      SizedBox(
-                        height: 10.0,
-                      ),
-
                       Padding(
-                            padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                            child:Row(
-                                children: <Widget>[
-                                  new Radio(
-                                    value: 1,
-                                    groupValue: groupValue,
-                                    onChanged: (value){
-                                      print("$value");
+                        padding: EdgeInsets.only(left: 28.0),
+                        child:Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding:EdgeInsets.only(top:23.0),
+                              child:Icon(Icons.location_on,color: Colors.black54,),
+                            ),
+
+                            SizedBox(
+                              width:15.0,
+                            ),
+
+                            //Drop down here
+                            Padding(
+                              padding:EdgeInsets.only(top:23.0),
+                                child: DropdownButton<String>(
+                                    isDense: true,
+                                    //hint: new Text("Select Bank"),
+                                    value: _selected,
+                                    onChanged: (String newValue) {
+                                      print(newValue);
                                       setState(() {
-                                        groupValue = 1;
+                                        _selected = newValue;
+
                                       });
+
+                                      print(_selected);
                                     },
-                                  ),
-                                  Expanded(
-                                    child:Text(
-                                      'Yes, I also serve them outside my location',
-                                      style: new TextStyle(fontSize: 16.0,color: Colors.black54),
-                                    ),
-                                  ),
-                                ]
-                            )),
+                                    items: countryList.map((Map map) {
+                                      return new DropdownMenuItem<String>(
+                                        value: map["country"].toString(),
 
+                                        // value: _mySelection,
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width*0.68,
+                                          child:Text(map["country"]),
+                                        )
 
-                      Padding(
-                          padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                          child:Row(
-                              children: <Widget>[
-                                new Radio(
-                                  value: 2,
-                                  groupValue: groupValue,
-                                  onChanged: (value){
-                                    print("$value");
-                                    setState(() {
-                                      groupValue = 2;
-                                    });
-                                  },
+                                      );
+                                    }).toList(),
+
                                 ),
-                                Text(
-                                  "No, I don't",
-                                  style: new TextStyle(fontSize: 16.0,color: Colors.black54),
-                                ),
-                              ]
-                          )),
 
+                            ),
+
+
+
+
+
+                          ],
+                        ),
+                      ),
 
                     ],
+
                   ),
 
 
@@ -150,7 +177,7 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
                                   ),
                                   SizedBox(
                                     width:28.0,
-                                    child:Icon(Icons.remove,size: 42.0,color: Colors.grey[300]),
+                                    child:Icon(Icons.remove,size: 42.0,color: Colors.blue),
                                   ),
                                   SizedBox(
                                     width:35.0,
@@ -159,10 +186,11 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
                                 ],
                               ),
 
+
+
                               GestureDetector(
                                 onTap: (){
-                                  //Navigator.pushNamed(context, 'BusinessAddFinishs');
-                                  Navigator.pushNamed(context, 'BusinessOptionalAddresses');
+                                  Navigator.pushNamed(context, 'BusinessConnections');
                                 },
                                 child: Row(
                                   children: <Widget>[

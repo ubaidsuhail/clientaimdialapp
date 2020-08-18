@@ -52,6 +52,12 @@ flutter:
     - images/invisiblepassword.jpg
     - images/itlogo.jpg
     - images/taxImage.png
+    - images/pakflag.jpg
+    - images/saudiflag.jpg
+    - images/turkeyflag.png
+    - images/albaniaflag.png
+    - images/argentinaflag.png
+    - images/australiaflag.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

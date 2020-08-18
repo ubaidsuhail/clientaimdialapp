@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BusinessOutsideLocation extends StatefulWidget {
+
+class BusinessOptionalAddress extends StatefulWidget {
   @override
-  _BusinessOutsideLocationState createState() => _BusinessOutsideLocationState();
+  _BusinessOptionalAddressState createState() => _BusinessOptionalAddressState();
 }
 
-class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
-  int groupValue = 0;
+class _BusinessOptionalAddressState extends State<BusinessOptionalAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Do you also serve customers outside this location?",style: TextStyle(fontSize: 23.0,wordSpacing: 1.0),),
+                    child:Text("Add the areas you serve (optional)",style: TextStyle(fontSize: 27.0),),
                   ),
 
                   Column(
@@ -43,61 +43,48 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
                     children: <Widget>[
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left:25.0,top: 18.0,right: 14.0),
-                          child:Text("For example, if you visit or deliver to your customers,you can let them know where you are willing to go",style: TextStyle(color: Colors.black54,wordSpacing: 1.2,fontSize: 16.0),)
+                          margin: EdgeInsets.only(left:25.0,top: 18.0,right: 12.0),
+                          child:Text("You can list your service areas below. They will show up on your listing and help bring relevant customers.",style: TextStyle(color: Colors.black54,wordSpacing: 1.2,fontSize: 16),)
                       ),
 
-                      SizedBox(
-                        height: 10.0,
+
+
+
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.75,
+                        margin: EdgeInsets.only(left:68.0,top: 40.0),
+                        child: Text("Search and select areas",style: TextStyle(color: Colors.black54,fontSize: 13.0),),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 28.0),
+                        child:Row(
+                          children: <Widget>[
+                            Icon(Icons.search,color: Colors.black54,),
+                            Container(
+                              width: MediaQuery.of(context).size.width*0.7,
+                              margin: EdgeInsets.only(left:15.0),
+                              child: TextFormField(
+                                style: TextStyle(
+                                    fontSize: 18.0
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: "Manhattan, New York",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
 
-                      Padding(
-                            padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                            child:Row(
-                                children: <Widget>[
-                                  new Radio(
-                                    value: 1,
-                                    groupValue: groupValue,
-                                    onChanged: (value){
-                                      print("$value");
-                                      setState(() {
-                                        groupValue = 1;
-                                      });
-                                    },
-                                  ),
-                                  Expanded(
-                                    child:Text(
-                                      'Yes, I also serve them outside my location',
-                                      style: new TextStyle(fontSize: 16.0,color: Colors.black54),
-                                    ),
-                                  ),
-                                ]
-                            )),
-
-
-                      Padding(
-                          padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                          child:Row(
-                              children: <Widget>[
-                                new Radio(
-                                  value: 2,
-                                  groupValue: groupValue,
-                                  onChanged: (value){
-                                    print("$value");
-                                    setState(() {
-                                      groupValue = 2;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  "No, I don't",
-                                  style: new TextStyle(fontSize: 16.0,color: Colors.black54),
-                                ),
-                              ]
-                          )),
-
-
+                      Container(
+                        margin: EdgeInsets.only(left:68.0,top: 8.0),
+                        child: Text("You can change and add more later",style: TextStyle(color: Colors.black54,fontSize: 13.0),),
+                      ),
                     ],
+
+
+
+
                   ),
 
 
@@ -150,7 +137,7 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
                                   ),
                                   SizedBox(
                                     width:28.0,
-                                    child:Icon(Icons.remove,size: 42.0,color: Colors.grey[300]),
+                                    child:Icon(Icons.remove,size: 42.0,color: Colors.blue),
                                   ),
                                   SizedBox(
                                     width:35.0,
@@ -159,10 +146,12 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
                                 ],
                               ),
 
+
+
                               GestureDetector(
                                 onTap: (){
-                                  //Navigator.pushNamed(context, 'BusinessAddFinishs');
-                                  Navigator.pushNamed(context, 'BusinessOptionalAddresses');
+                                  //Navigator.pushNamed(context, 'BusinessConnections');
+                                  Navigator.pushNamed(context, 'BusinessRegions');
                                 },
                                 child: Row(
                                   children: <Widget>[
