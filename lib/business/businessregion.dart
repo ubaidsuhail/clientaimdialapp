@@ -57,7 +57,7 @@ class _BusinessRegionState extends State<BusinessRegion> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("What region is your business based in?",style: TextStyle(fontSize: 27.0),),
+                    child:Text("What region is your business based in?",style: TextStyle(fontSize: 25.0),),
                   ),
 
                   Column(

@@ -35,7 +35,7 @@ class _BusinessAddFinishState extends State<BusinessAddFinish> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Finish and manage this listing",style: TextStyle(fontSize: 23.0,wordSpacing: 1.0),),
+                    child:Text("Finish and manage this listing",style: TextStyle(fontSize: 25.0,wordSpacing: 1.0),),
                   ),
 
                   Column(

@@ -35,7 +35,7 @@ class _BusinessOptionalAddressState extends State<BusinessOptionalAddress> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Add the areas you serve (optional)",style: TextStyle(fontSize: 27.0),),
+                    child:Text("Add the areas you serve (optional)",style: TextStyle(fontSize: 25.0),),
                   ),
 
                   Column(

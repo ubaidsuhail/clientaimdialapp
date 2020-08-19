@@ -36,7 +36,7 @@ class _CustomerLocationChoiceState extends State<CustomerLocationChoice> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Do you want to add a location customers can visit,like a store or office?",style: TextStyle(fontSize: 23.0,wordSpacing: 1.0),),
+                    child:Text("Do you want to add a location customers can visit,like a store or office?",style: TextStyle(fontSize: 25.0,wordSpacing: 1.0),),
                   ),
 
                   Column(

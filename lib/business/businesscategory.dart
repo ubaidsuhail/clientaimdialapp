@@ -34,7 +34,7 @@ class _BusinessCategoryState extends State<BusinessCategory> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Choose the category that fits your business best",style: TextStyle(fontSize: 27.0),),
+                    child:Text("Choose the category that fits your business best",style: TextStyle(fontSize: 25.0),),
                   ),
 
                   Column(

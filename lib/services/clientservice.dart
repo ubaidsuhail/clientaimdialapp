@@ -52,7 +52,8 @@ class _ClientServiceState extends State<ClientService> {
 
       SizedBox(height:15.0),
 
-      SingleChildScrollView(
+      Expanded(
+      child:SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
@@ -118,9 +119,8 @@ class _ClientServiceState extends State<ClientService> {
                 child:ListView.builder(
                     itemCount: 4,
                     itemBuilder: (BuildContext context , int index){
-                      return Container(
-                        width:MediaQuery.of(context).size.width*0.9,
-                        height:MediaQuery.of(context).size.height*0.2 ,
+                      return Padding(
+                       padding: EdgeInsets.only(top: 10.0),
                         //color: Colors.blue,
                         child: Column(
                           children: <Widget>[
@@ -243,10 +243,14 @@ class _ClientServiceState extends State<ClientService> {
               )
             ),
 
+            SizedBox(
+              height: 10.0,
+            ),
+
 
           ],
         ),
-      ),
+      )),
 
 
 

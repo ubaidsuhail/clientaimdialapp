@@ -71,7 +71,7 @@ class _BusinessConnectionState extends State<BusinessConnection> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Make Connections (Optional)",style: TextStyle(fontSize: 27.0),),
+                    child:Text("Make Connections (Optional)",style: TextStyle(fontSize: 25.0),),
                   ),
 
                   Column(

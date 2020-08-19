@@ -22,10 +22,14 @@ class _LoginRegisterState extends State<LoginRegister> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 20.0,
+                height: MediaQuery.of(context).size.height*0.15,
               ),
 
-              Image(image: AssetImage("images/consultancylogo.png"),width: 200.0,height: 200.0,),
+              Image(image: AssetImage("images/consultancylogo.jpg"),width: 120.0,height: 120.0,),
+
+              SizedBox(
+                height: 35.0,
+              ),
 
               Container(
                 width: MediaQuery.of(context).size.width*0.9,
@@ -146,6 +150,11 @@ class _LoginRegisterState extends State<LoginRegister> {
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.1),
                 child: Text("AIMDIAL",style: TextStyle(fontSize: 35.0,color: Colors.grey),),
               ),
+
+              SizedBox(
+                height: 4.0,
+              ),
+
 
             ],
           ),

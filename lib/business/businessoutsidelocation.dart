@@ -35,7 +35,7 @@ class _BusinessOutsideLocationState extends State<BusinessOutsideLocation> {
 
                   Padding(
                     padding: EdgeInsets.only(left:25.0,right: 12.0),
-                    child:Text("Do you also serve customers outside this location?",style: TextStyle(fontSize: 23.0,wordSpacing: 1.0),),
+                    child:Text("Do you also serve customers outside this location?",style: TextStyle(fontSize: 25.0,wordSpacing: 1.0),),
                   ),
 
                   Column(

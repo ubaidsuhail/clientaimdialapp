@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
          children: <Widget>[
            Container(
                margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.25),
-               child:Image(image: AssetImage("images/consultancylogo.png"),width: 200.0,height: 200.0,)
+               child:Image(image: AssetImage("images/consultancylogo.jpg"),width: 180.0,height: 180.0,)
            ),
 
            Expanded(
