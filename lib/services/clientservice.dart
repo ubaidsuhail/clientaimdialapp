@@ -188,7 +188,7 @@ class _ClientServiceState extends State<ClientService> {
                             Center(
                               child:GestureDetector(
                               onTap: (){
-                                print("View Insight");
+                                Navigator.pushNamed(context, "ViewInsights");
                               },
                               child:Text("View Insights",style: TextStyle(color: Colors.blue),)
                               ),

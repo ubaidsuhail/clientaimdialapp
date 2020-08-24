@@ -13,6 +13,7 @@ import 'package:aimdialconsultantapp/business/businessaddfinish.dart';
 import 'package:aimdialconsultantapp/business/businessoptionaladdress.dart';
 import 'package:aimdialconsultantapp/business/businessconnection.dart';
 import 'package:aimdialconsultantapp/business/businessregion.dart';
+import 'package:aimdialconsultantapp/services/viewinsight.dart';
 
 
 void main(List<String> args) {
@@ -36,6 +37,9 @@ void main(List<String> args) {
     'BusinessOptionalAddresses' : (BuildContext context) =>BusinessOptionalAddress(),
     'BusinessConnections' : (BuildContext context) =>BusinessConnection(),
     'BusinessRegions' : (BuildContext context) =>BusinessRegion(),
+    'ViewInsights' : (BuildContext context) =>ViewInsight(),
+
+
 
     },
   ));
