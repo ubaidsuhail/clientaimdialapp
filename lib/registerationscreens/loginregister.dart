@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter/services.dart';
+import 'package:aimdialconsultantapp/apiurl/apis_url.dart';
+import 'package:http/http.dart';
+import 'package:aimdialconsultantapp/registerationscreens/verifyphonenumber.dart';
 class LoginRegister extends StatefulWidget {
   @override
   _LoginRegisterState createState() => _LoginRegisterState();
@@ -10,6 +14,16 @@ class _LoginRegisterState extends State<LoginRegister> {
   int selectScreen = 1;
   final _loginForm = GlobalKey<FormState>();
   final _registerForm = GlobalKey<FormState>();
+
+  TextEditingController _userName = TextEditingController();
+  TextEditingController _userDateOfBirth = TextEditingController();
+  TextEditingController _userLoginPolicy = TextEditingController(text:"Please read correct login policy");
+  TextEditingController _userCellNumber = TextEditingController();
+  TextEditingController _userPassword = TextEditingController();
+
+  var dbMaskFormatter = new MaskTextInputFormatter(mask: '##-##-####', filter: { "#": RegExp(r'[0-9]') });
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +282,14 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Full Name"),
                   //Full Name
                   TextFormField(
+                    controller: _userName,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Full name should not be empty';
+                      }
+                      return null;
+                    },
+
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -278,6 +300,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                       hintStyle: TextStyle(color: Colors.green[800]),
 
                     ),
+
                   ),
 
                   SizedBox(
@@ -287,6 +310,19 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Date of Birth"),
                   //date of birth
                   TextFormField(
+                    controller: _userDateOfBirth,
+
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Date of birth should not be empty';
+                        }
+                        else if (value.length < 10)
+                          {
+                          return 'Enter Correct date format';
+                          }
+                        return null;
+                      },
+
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -298,36 +334,24 @@ class _LoginRegisterState extends State<LoginRegister> {
                       hintStyle: TextStyle(color: Colors.green[800]),
 
                     ),
+                    keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        dbMaskFormatter,
+                        //WhitelistingTextInputFormatter.digitsOnly
+                      ]
 
                   ),
+
+
 
                   SizedBox(
                     height: 20.0,
                   ),
-                  //Create Login ID
-                  Text("Create Login ID"),
-                  //password
-                  TextFormField(
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey[300]),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey[300]),
-                      ),
-                      hintText: "Enter Login ID",
-                      hintStyle: TextStyle(color: Colors.green[800]),
-
-                    ),
-
-                  ),
-
-                  SizedBox(
-                    height: 10.0,
-                  ),
 
                   //Login ID Policy
                   TextFormField(
+                    enabled: false,
+                    controller: _userLoginPolicy,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -350,6 +374,18 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Cell Phone Number"),
                   //Cell Phone Number
                   TextFormField(
+                    controller: _userCellNumber,
+
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Cell Phone Number should not be empty';
+                        }
+                        else if (value.length < 11)
+                        {
+                          return 'Enter Correct Phone No format';
+                        }
+                        return null;
+                      },
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -358,9 +394,42 @@ class _LoginRegisterState extends State<LoginRegister> {
                         borderSide: BorderSide(color: Colors.grey[300]),
                       ),
 
-
+                      hintText: "03102765431",
+                      hintStyle: TextStyle(color: Colors.green[800]),
                     ),
+                    keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(11),
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ]
+                  ),
 
+
+                  SizedBox(
+                    height: 20.0,
+                  ),
+
+                  Text("Password"),
+                  //Cell Phone Number
+                  TextFormField(
+                      controller: _userPassword,
+
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Password should not be empty';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]),
+                        ),
+
+                      ),
+                      obscureText: true,
                   ),
 
                   SizedBox(
@@ -393,9 +462,12 @@ class _LoginRegisterState extends State<LoginRegister> {
                         height:MediaQuery.of(context).size.height*0.06 ,
                         child:RaisedButton(
                           onPressed: (){
-                            setState(() {
-                              selectScreen = 1;
-                            });
+                          if(_registerForm.currentState.validate()) {
+                            Register();
+                          }
+                          else{
+                            print("register invalid");
+                          }
                           },
                           color: Colors.teal,
                           child: Text("Continue",style: TextStyle(color: Colors.white),),
@@ -420,6 +492,85 @@ class _LoginRegisterState extends State<LoginRegister> {
 
       ],
     );
+  }
+
+  void Register() async
+  {
+
+
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => VerifyPhoneNumber(userName:_userName.text,userDateOfBirth:_userDateOfBirth.text,userCellNumber:_userCellNumber.text,userPassword:_userPassword.text)));
+
+
+//    setState(() {
+//      selectScreen = 1;
+//    });
+
+
+//    showDialog(
+//        context: context,
+//        builder: (context) {
+//          return Center(
+//                child:CircularProgressIndicator(),
+//              );
+//        });
+//
+//    print("Full Name:${_userName.text}");
+//    print("Date of Birth:${_userDateOfBirth.text}");
+//    print("Cell Phone Number:${_userCellNumber.text}");
+//    print("Password:${_userPassword.text}");
+//
+//    String convertDateOfBirth = _userDateOfBirth.text.substring(6,10) + "-" + _userDateOfBirth.text.substring(3,5) + "-" + _userDateOfBirth.text.substring(0,2);
+//   print("Convert date of birth:${convertDateOfBirth}");
+//
+//    String url = signupApi;
+//    String json = '{"UserName":"${_userName.text}","UserDateOfBirth":"$convertDateOfBirth","UserCellNumber":"${_userCellNumber.text}","UserPassword":"${_userPassword.text}"}';
+//    Response response = await post(url, body: json);
+//
+//    print("status code is:${response.statusCode}");
+//    print("response body is:${response.body}");
+//
+//    if(response.statusCode == 200 && response.body.toString() == "1")
+//      {
+//        Navigator.of(context, rootNavigator: true).pop();
+//
+//        _userName.text = "";
+//        _userDateOfBirth.text = "";
+//        _userCellNumber.text = "";
+//        _userPassword.text = "";
+//
+//        setState(() {
+//      selectScreen = 1;
+//    });
+//
+//         print("signup");
+//      }
+//
+//    else if(response.statusCode == 200 && response.body.toString() == "Cell Number Already Exists")
+//      {
+//        Navigator.of(context, rootNavigator: true).pop();
+//        showDialog(
+//            context: context,
+//            builder: (context) {
+//              return AlertDialog(
+//                title: Text(
+//                  "Error",
+//                ),
+//                content: Text("Cell Number already used"),
+//                actions: <Widget>[
+//                  FlatButton(
+//                    child: Text("Ok"),
+//                    onPressed: () {
+//                     Navigator.pop(context);
+//                    },
+//                  )
+//                ],
+//              );
+//            });
+//      }
+//
+
+
+
   }
 
 }

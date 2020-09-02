@@ -19,6 +19,7 @@ class _BottomBarState extends State<BottomBar> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: new TabBarView(
         controller: tabs,
         children: <Widget>[
