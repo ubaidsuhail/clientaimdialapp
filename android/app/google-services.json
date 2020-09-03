@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "594660208979",
+    "firebase_url": "https://aimdialconsultantapp.firebaseio.com",
+    "project_id": "aimdialconsultantapp",
+    "storage_bucket": "aimdialconsultantapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594660208979:android:ae0e2489bd42801d6d31a6",
+        "android_client_info": {
+          "package_name": "com.ubaid.aimdialconsultantapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594660208979-288umao7ad03c8fog470i60joh3hvalv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ubaid.aimdialconsultantapp",
+            "certificate_hash": "d80e2e67772a0abbccf19b634436ea8a3a9e2d43"
+          }
+        },
+        {
+          "client_id": "594660208979-mmalqbtig0004a0n5e00fvqmpn8oqirp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAafIfMgqq7oCEkXYS_hnnBA9qao6ZCluc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594660208979-mmalqbtig0004a0n5e00fvqmpn8oqirp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

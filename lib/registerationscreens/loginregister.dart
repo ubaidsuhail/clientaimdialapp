@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter/services.dart';
-import 'package:aimdialconsultantapp/apiurl/apis_url.dart';
+import 'package:aimdialconsultantapp/datamodels/apisurl.dart';
 import 'package:http/http.dart';
 import 'package:aimdialconsultantapp/registerationscreens/verifyphonenumber.dart';
+import 'dart:convert';
+import 'package:aimdialconsultantapp/datamodels/sharedpreferenceapp.dart';
 class LoginRegister extends StatefulWidget {
   @override
   _LoginRegisterState createState() => _LoginRegisterState();
@@ -21,8 +23,17 @@ class _LoginRegisterState extends State<LoginRegister> {
   TextEditingController _userCellNumber = TextEditingController();
   TextEditingController _userPassword = TextEditingController();
 
-  var dbMaskFormatter = new MaskTextInputFormatter(mask: '##-##-####', filter: { "#": RegExp(r'[0-9]') });
+  TextEditingController _loginUserCellNumber = TextEditingController();
+  TextEditingController _loginUserPassword = TextEditingController();
 
+  var dbMaskFormatter = new MaskTextInputFormatter(mask: '##-##-####', filter: { "#": RegExp(r'[0-9]') });
+  String convertDateOfBirth  = "";
+
+  bool visiblePassword = true;
+
+  Map<String,dynamic> loginInfo = {};
+
+  SharedPreferenceApp shPref = SharedPreferenceApp();
 
 
   @override
@@ -192,6 +203,17 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Login ID"),
                   //login id
                   TextFormField(
+                    controller: _loginUserCellNumber,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Login Id should not be empty';
+                      }
+                      else if (value.length < 11)
+                      {
+                        return 'Enter Correct Login Id format';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -203,6 +225,11 @@ class _LoginRegisterState extends State<LoginRegister> {
                       hintStyle: TextStyle(color: Colors.green[800]),
 
                     ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(11),
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
                   ),
 
                   SizedBox(
@@ -212,14 +239,36 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Password"),
                   //password
                   TextFormField(
+                    controller: _loginUserPassword,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Password should not be empty';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         hintText: "Enter Password",
                         hintStyle: TextStyle(color: Colors.green[800]),
-                        suffixIcon:IconButton(icon: Icon(Icons.visibility_off,color: Colors.black,size:20.0), onPressed: null)
+                        suffixIcon:IconButton(
+                            icon: Icon(visiblePassword == true ? Icons.visibility_off : Icons.visibility,color: Colors.black,size:20.0),
+                            onPressed: (){
+                              if(visiblePassword == true)
+                                {
+                                  setState(() {
+                                    visiblePassword = false;
+                                  });
+                                }
+                                else
+                                  {
+                                    setState(() {
+                                      visiblePassword = true;
+                                    });
+                                  }
+                            })
                     ),
-                    obscureText: true,
+                    obscureText: visiblePassword == true ? true : false,
                   ),
 
 
@@ -231,7 +280,12 @@ class _LoginRegisterState extends State<LoginRegister> {
                     child: RaisedButton(
                       elevation: 0.0,
                       onPressed: (){
-                     Navigator.pushNamed(context, 'BottomBars');
+                        if(_loginForm.currentState.validate()) {
+                          Login();
+                        }
+                        else{
+                          print("login invalid");
+                        }
                       },
                       color:Colors.teal,
                       child: Text("Login",style: TextStyle(color:Colors.white,fontSize: 16.0),),
@@ -497,80 +551,140 @@ class _LoginRegisterState extends State<LoginRegister> {
   void Register() async
   {
 
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+                child:CircularProgressIndicator(),
+              );
+        });
 
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => VerifyPhoneNumber(userName:_userName.text,userDateOfBirth:_userDateOfBirth.text,userCellNumber:_userCellNumber.text,userPassword:_userPassword.text)));
 
 
-//    setState(() {
-//      selectScreen = 1;
-//    });
+
+    String url = checkMobileNumberApi;
+    String json = '{"UserCellNumber":"${_userCellNumber.text}"}';
+    Response response = await post(url, body: json);
+
+    print("status code is:${response.statusCode}");
+    print("response body is:${response.body}");
+
+    if(response.statusCode == 200 && response.body.toString() == "Cell Number Not Found")
+      {
+
+        Navigator.of(context, rootNavigator: true).pop();
+
+        convertDateOfBirth = _userDateOfBirth.text.substring(6,10) + "-" + _userDateOfBirth.text.substring(3,5) + "-" + _userDateOfBirth.text.substring(0,2);
+        print("Convert date of birth:${convertDateOfBirth}");
+
+        print("go to otp verification");
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VerifyPhoneNumber(userName:_userName.text,userDateOfBirth:convertDateOfBirth,userCellNumber:_userCellNumber.text,userPassword:_userPassword.text)));
+
+      }
+
+    else if(response.statusCode == 200 && response.body.toString() == "Cell Number Already Exists")
+      {
+
+        Navigator.of(context, rootNavigator: true).pop();
+
+        _userCellNumber.text = "";
 
 
-//    showDialog(
-//        context: context,
-//        builder: (context) {
-//          return Center(
-//                child:CircularProgressIndicator(),
-//              );
-//        });
-//
-//    print("Full Name:${_userName.text}");
-//    print("Date of Birth:${_userDateOfBirth.text}");
-//    print("Cell Phone Number:${_userCellNumber.text}");
-//    print("Password:${_userPassword.text}");
-//
-//    String convertDateOfBirth = _userDateOfBirth.text.substring(6,10) + "-" + _userDateOfBirth.text.substring(3,5) + "-" + _userDateOfBirth.text.substring(0,2);
-//   print("Convert date of birth:${convertDateOfBirth}");
-//
-//    String url = signupApi;
-//    String json = '{"UserName":"${_userName.text}","UserDateOfBirth":"$convertDateOfBirth","UserCellNumber":"${_userCellNumber.text}","UserPassword":"${_userPassword.text}"}';
-//    Response response = await post(url, body: json);
-//
-//    print("status code is:${response.statusCode}");
-//    print("response body is:${response.body}");
-//
-//    if(response.statusCode == 200 && response.body.toString() == "1")
-//      {
-//        Navigator.of(context, rootNavigator: true).pop();
-//
-//        _userName.text = "";
-//        _userDateOfBirth.text = "";
-//        _userCellNumber.text = "";
-//        _userPassword.text = "";
-//
-//        setState(() {
-//      selectScreen = 1;
-//    });
-//
-//         print("signup");
-//      }
-//
-//    else if(response.statusCode == 200 && response.body.toString() == "Cell Number Already Exists")
-//      {
-//        Navigator.of(context, rootNavigator: true).pop();
-//        showDialog(
-//            context: context,
-//            builder: (context) {
-//              return AlertDialog(
-//                title: Text(
-//                  "Error",
-//                ),
-//                content: Text("Cell Number already used"),
-//                actions: <Widget>[
-//                  FlatButton(
-//                    child: Text("Ok"),
-//                    onPressed: () {
-//                     Navigator.pop(context);
-//                    },
-//                  )
-//                ],
-//              );
-//            });
-//      }
-//
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  "Error",
+                ),
+                content: Text("This cell number already being used"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Ok"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            });
+
+      }
+
+  }
+
+
+  void Login() async{
+
+    print("Logged in");
+
+//    print("Cell No:${_loginUserCellNumber.text}");
+//    print("Password:${_loginUserPassword.text}");
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child:CircularProgressIndicator(),
+          );
+        });
+
+    String url = loginApi;
+    String json = '{"UserCellNumber":"${_loginUserCellNumber.text}","UserPassword":"${_loginUserPassword.text}"}';
+    Response response = await post(url, body: json);
+    print("status code is:${response.statusCode}");
+    print("response body is:${response.body}");
+
+    if(response.statusCode == 200 && response.body.toString() == "Wrong Cell Number or Password")
+    {
+
+      Navigator.of(context, rootNavigator: true).pop();
+
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Wrong Email or Password"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+
+    }
+
+    else if(response.statusCode == 200)
+      {
+        Navigator.of(context, rootNavigator: true).pop();
+        loginInfo = jsonDecode(response.body);
+        print("Login Information:${loginInfo}");
+        print("User Id:${int.parse(loginInfo['userid'])}");
+        print("User Name:${loginInfo['username']}");
+        print("User Date Of birth:${loginInfo['userdateofbirth']}");
+        print("User Cell Number:${loginInfo['usercellnumber']}");
+        print("User Password:${loginInfo['userpassword']}");
+
+
+        await shPref.SetUserInformation(int.parse(loginInfo['userid']) , loginInfo['username'] , loginInfo['userdateofbirth'] , loginInfo['usercellnumber'] , loginInfo['userpassword']);
+
+
+        Navigator.pushReplacementNamed(context, 'BottomBars');
+
+
+
+      }
 
 
 
   }
+
 
 }
