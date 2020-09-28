@@ -1,4 +1,4 @@
-package com.ubaid.aimdialconsultantapp
+package com.ubaid.clientaimdialapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:aimdialconsultantapp/services/clientservice.dart';
-import 'package:aimdialconsultantapp/services/servicesname.dart';
+import 'package:clientaimdialapp/services/clientservice.dart';
+import 'package:clientaimdialapp/services/servicesname.dart';
 
 class BottomBar extends StatefulWidget {
   @override

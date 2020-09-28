@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:aimdialconsultantapp/splashscreen.dart';
-import 'package:aimdialconsultantapp/bar/bottombar.dart';
-import 'package:aimdialconsultantapp/services/otherservice.dart';
-import 'package:aimdialconsultantapp/business/businesslist.dart';
-import 'package:aimdialconsultantapp/business/businessname.dart';
-import 'package:aimdialconsultantapp/business/businesscategory.dart';
-import 'package:aimdialconsultantapp/business/customerlocationchoice.dart';
-import 'package:aimdialconsultantapp/business/businessaddress.dart';
-import 'package:aimdialconsultantapp/business/businessoutsidelocation.dart';
-import 'package:aimdialconsultantapp/business/businessaddfinish.dart';
-import 'package:aimdialconsultantapp/business/businessoptionaladdress.dart';
-import 'package:aimdialconsultantapp/business/businessconnection.dart';
-import 'package:aimdialconsultantapp/business/businessregion.dart';
-import 'package:aimdialconsultantapp/services/viewinsight.dart';
-import 'package:aimdialconsultantapp/registerationscreens/verifyphonenumber.dart';
+import 'package:clientaimdialapp/splashscreen.dart';
+import 'package:clientaimdialapp/bar/bottombar.dart';
+import 'package:clientaimdialapp/services/otherservice.dart';
+import 'package:clientaimdialapp/business/businesslist.dart';
+import 'package:clientaimdialapp/business/businessname.dart';
+import 'package:clientaimdialapp/business/businesscategory.dart';
+import 'package:clientaimdialapp/business/customerlocationchoice.dart';
+import 'package:clientaimdialapp/business/businessaddress.dart';
+import 'package:clientaimdialapp/business/businessoutsidelocation.dart';
+import 'package:clientaimdialapp/business/businessaddfinish.dart';
+import 'package:clientaimdialapp/business/businessoptionaladdress.dart';
+import 'package:clientaimdialapp/business/businessconnection.dart';
+import 'package:clientaimdialapp/business/businessregion.dart';
+import 'package:clientaimdialapp/services/viewinsight.dart';
+import 'package:clientaimdialapp/registerationscreens/verifyphonenumber.dart';
 
 
 void main(List<String> args) {

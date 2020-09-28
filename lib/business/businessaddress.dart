@@ -6,6 +6,15 @@ class BusinessAddress extends StatefulWidget {
 }
 
 class _BusinessAddressState extends State<BusinessAddress> {
+
+  final _businessAddressForm = GlobalKey<FormState>();
+
+  TextEditingController businessStreetAddress = TextEditingController();
+  TextEditingController businessCity = TextEditingController();
+  TextEditingController businessState = TextEditingController();
+  TextEditingController businessZipCode = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +30,7 @@ class _BusinessAddressState extends State<BusinessAddress> {
             )
         ),
         body:SingleChildScrollView(
-            child:Container(
+        child:Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height*0.86,
               //color: Colors.blue,
@@ -43,60 +52,100 @@ class _BusinessAddressState extends State<BusinessAddress> {
 
                   Container(
                     margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.18,right: MediaQuery.of(context).size.width*0.12),
-                  child:Column(
-                    children: <Widget>[
-                        TextFormField(
-                          style: TextStyle(
-                            fontSize: 16.0
-                        ),
-                          decoration: InputDecoration(
-                            hintText: "Street address",
+                  child:Form(
+                    key: _businessAddressForm,
+                  child:SingleChildScrollView(
+                      child:Column(
+                        children: <Widget>[
+                          TextFormField(
+                            controller: businessStreetAddress,
+                            validator: (value){
+                              if(value.isEmpty)
+                              {
+                                return "Street Address can not be empty";
+                              }
+                              return null;
+                            },
+                            style: TextStyle(
+                                fontSize: 16.0
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Street address",
+                            ),
                           ),
-                       ),
 
-                        SizedBox(
-                          height: 50.0,
-                        ),
-
-                        TextFormField(
-                          style: TextStyle(
-                              fontSize: 16.0
+                          SizedBox(
+                            height: 50.0,
                           ),
-                          decoration: InputDecoration(
-                            hintText: "City",
+
+                          TextFormField(
+                            controller: businessCity,
+                            validator: (value){
+                              if(value.isEmpty)
+                              {
+                                return "City can not be empty";
+                              }
+                              return null;
+                            },
+
+
+                            style: TextStyle(
+                                fontSize: 16.0
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "City",
+                            ),
                           ),
-                        ),
 
 
-                        SizedBox(
-                          height: 50.0,
-                        ),
-
-                        TextFormField(
-                          style: TextStyle(
-                              fontSize: 16.0
+                          SizedBox(
+                            height: 50.0,
                           ),
-                          decoration: InputDecoration(
-                            hintText: "State",
+
+                          TextFormField(
+                            controller: businessState,
+                            validator: (value){
+                              if(value.isEmpty)
+                              {
+                                return "State can not be empty";
+                              }
+                              return null;
+                            },
+                            style: TextStyle(
+                                fontSize: 16.0
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "State",
+                            ),
                           ),
-                        ),
 
-                        SizedBox(
-                          height: 50.0,
-                        ),
-
-                        TextFormField(
-                          style: TextStyle(
-                              fontSize: 16.0
+                          SizedBox(
+                            height: 50.0,
                           ),
-                          decoration: InputDecoration(
-                            hintText: "Zip code",
+
+                          TextFormField(
+                            controller: businessZipCode,
+
+                            validator: (value){
+                              if(value.isEmpty)
+                              {
+                                return "Zip Code can not be empty";
+                              }
+                              return null;
+                            },
+                            style: TextStyle(
+                                fontSize: 16.0
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Zip code",
+                            ),
                           ),
-                        ),
 
-                    ],
+                        ],
 
+                      )
                   )
+                  ),
                   ),
 
 
@@ -162,7 +211,16 @@ class _BusinessAddressState extends State<BusinessAddress> {
 
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushNamed(context, 'BusinessOutsideLocations');
+
+                                  if(_businessAddressForm.currentState.validate()) {
+                                    Navigator.pushNamed(context, 'BusinessOutsideLocations');
+                                  }
+                                  else{
+                                    print("Business Address in invalid");
+                                  }
+
+
+                                  //Navigator.pushNamed(context, 'BusinessOutsideLocations');
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -186,7 +244,7 @@ class _BusinessAddressState extends State<BusinessAddress> {
 
 
 
-            ))
-    );
+            )
+    ));
   }
 }

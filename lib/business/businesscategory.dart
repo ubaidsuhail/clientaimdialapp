@@ -6,6 +6,10 @@ class BusinessCategory extends StatefulWidget {
 }
 
 class _BusinessCategoryState extends State<BusinessCategory> {
+
+  final _businessCategoryForm = GlobalKey<FormState>();
+  TextEditingController businessCategory = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,11 +84,22 @@ class _BusinessCategoryState extends State<BusinessCategory> {
                                Container(
                                  width: MediaQuery.of(context).size.width*0.7,
                                  margin: EdgeInsets.only(left:15.0),
-                                 child: TextFormField(
-                                   style: TextStyle(
-                                       fontSize: 18.0
+                                 child:Form(
+                                   key: _businessCategoryForm,
+                                   child:TextFormField(
+                                     controller: businessCategory,
+                                     validator: (value){
+                                       if(value.isEmpty)
+                                       {
+                                         return "Business Category can not be empty";
+                                       }
+                                       return null;
+                                     },
+                                     style: TextStyle(
+                                         fontSize: 18.0
+                                     ),
                                    ),
-                                 ),
+                                 )
                                ),
                              ],
                            ),
@@ -164,7 +179,14 @@ class _BusinessCategoryState extends State<BusinessCategory> {
 
                               GestureDetector(
                                 onTap: (){
-                                 Navigator.pushNamed(context, 'CustomerLocationChoices');
+
+                                  if(_businessCategoryForm.currentState.validate()) {
+                                    Navigator.pushNamed(context, 'CustomerLocationChoices');
+                                  }
+                                  else{
+                                    print("business category in invalid");
+                                  }
+
                                 },
                                 child: Row(
                                   children: <Widget>[

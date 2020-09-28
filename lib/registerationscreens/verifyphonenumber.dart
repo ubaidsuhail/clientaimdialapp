@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:aimdialconsultantapp/datamodels/apisurl.dart';
+import 'package:clientaimdialapp/datamodels/apisurl.dart';
 import 'package:http/http.dart';
-import 'package:aimdialconsultantapp/registerationscreens/loginregister.dart';
+import 'package:clientaimdialapp/registerationscreens/loginregister.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 class VerifyPhoneNumber extends StatefulWidget {
@@ -203,8 +203,9 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
 
 
   void CodeExpireTime() async{
+    print("Code expire starts");
     Timer(
-      Duration(seconds: 10),
+      Duration(seconds: 25),
           (){
         print("Code has been expired now");
            errorMessage = "Code Expired";

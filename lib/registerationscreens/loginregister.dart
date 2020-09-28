@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter/services.dart';
-import 'package:aimdialconsultantapp/datamodels/apisurl.dart';
+import 'package:clientaimdialapp/datamodels/apisurl.dart';
 import 'package:http/http.dart';
-import 'package:aimdialconsultantapp/registerationscreens/verifyphonenumber.dart';
+import 'package:clientaimdialapp/registerationscreens/verifyphonenumber.dart';
 import 'dart:convert';
-import 'package:aimdialconsultantapp/datamodels/sharedpreferenceapp.dart';
+import 'package:clientaimdialapp/datamodels/sharedpreferenceapp.dart';
 class LoginRegister extends StatefulWidget {
   @override
   _LoginRegisterState createState() => _LoginRegisterState();

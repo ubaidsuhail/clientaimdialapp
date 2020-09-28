@@ -6,6 +6,10 @@ class BusinessName extends StatefulWidget {
 }
 
 class _BusinessNameState extends State<BusinessName> {
+
+  final _businessNameForm = GlobalKey<FormState>();
+  TextEditingController businessName = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +60,23 @@ class _BusinessNameState extends State<BusinessName> {
                       Container(
                         width: MediaQuery.of(context).size.width*0.75,
                         margin: EdgeInsets.only(left:15.0),
-                        child: TextFormField(
-                         style: TextStyle(
-                           fontSize: 18.0
-                         ),
-                        ),
+                        child: Form(
+                          key:_businessNameForm,
+                          child: TextFormField(
+                          controller: businessName,
+                            validator: (value){
+                              if(value.isEmpty)
+                                {
+                                  return "Business Name can not be empty";
+                                }
+                                return null;
+                            },
+
+                            style: TextStyle(
+                                fontSize: 18.0
+                            ),
+                          ),
+                        )
                       ),
                     ],
                   ),
@@ -150,7 +166,13 @@ class _BusinessNameState extends State<BusinessName> {
 
                         GestureDetector(
                           onTap: (){
-                         Navigator.pushNamed(context, 'BusinessCategorys');
+
+                            if(_businessNameForm.currentState.validate()) {
+                              Navigator.pushNamed(context, 'BusinessCategorys');
+                            }
+                            else{
+                              print("business name in invalid");
+                            }
                           },
                           child: Row(
                             children: <Widget>[

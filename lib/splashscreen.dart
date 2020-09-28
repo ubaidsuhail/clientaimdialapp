@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:aimdialconsultantapp/registerationscreens/loginregister.dart';
+import 'package:clientaimdialapp/registerationscreens/loginregister.dart';
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
