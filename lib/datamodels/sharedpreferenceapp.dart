@@ -5,48 +5,48 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferenceApp
 {
 
-  Future SetUserInformation(int UserId , String UserName , String UserDateOfBirth , String UserCellNumber , String UserPassword) async
+  Future SetClientInformation(int ClientId , String ClientName , String ClientDateOfBirth , String ClientCellNumber , String ClientPassword) async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.setInt("userid", UserId);
-    prefs.setString("username", UserName);
-    prefs.setString("userdateofbirth", UserDateOfBirth);
-    prefs.setString("usercellnumber", UserCellNumber);
-    prefs.setString("userpassword", UserPassword);
+    prefs.setInt("clientid", ClientId);
+    prefs.setString("clientname", ClientName);
+    prefs.setString("clientdateofbirth", ClientDateOfBirth);
+    prefs.setString("clientcellnumber", ClientCellNumber);
+    prefs.setString("clientpassword", ClientPassword);
 
 
   }
 
 
-  Future<int> getuserid() async
+  Future<int> GetClientId() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt("userid");
+    return prefs.getInt("clientid");
   }
 
-  Future<String> getusername() async
+  Future<String> GetClientName() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("username");
+    return prefs.getString("clientname");
   }
 
-  Future<String> getuserdateofbirth() async
+  Future<String> GetClientDateOfBirth() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("userdateofbirth");
+    return prefs.getString("clientdateofbirth");
   }
 
-  Future<String> getusercellnumber() async
+  Future<String> GetClientCellNumber() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("usercellnumber");
+    return prefs.getString("clientcellnumber");
   }
 
-  Future<String> getuserpassword() async
+  Future<String> GetClientPassword() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("userpassword");
+    return prefs.getString("clientpassword");
   }
 
 

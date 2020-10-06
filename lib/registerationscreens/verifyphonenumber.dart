@@ -7,13 +7,13 @@ import 'package:clientaimdialapp/registerationscreens/loginregister.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 class VerifyPhoneNumber extends StatefulWidget {
-String userName;
-String userDateOfBirth;
-String userCellNumber;
-String userPassword;
+String clientName;
+String clientDateOfBirth;
+String clientCellNumber;
+String clientPassword;
 
 
-VerifyPhoneNumber({this.userName,this.userDateOfBirth,this.userCellNumber,this.userPassword});
+VerifyPhoneNumber({this.clientName,this.clientDateOfBirth,this.clientCellNumber,this.clientPassword});
 
 
   @override
@@ -26,7 +26,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
 
   String errorMessage = "";
   String verificationId;
-  String userOtpCellNumber;
+  String clientOtpCellNumber;
   String correctAuthenticate = "";
 
 
@@ -158,10 +158,10 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
     );
 
 
-    userOtpCellNumber = widget.userCellNumber.substring(1);
-    userOtpCellNumber = "+92" + userOtpCellNumber;
+    clientOtpCellNumber = widget.clientCellNumber.substring(1);
+    clientOtpCellNumber = "+92" + clientOtpCellNumber;
 
-    print("User opt number is:${userOtpCellNumber}");
+    print("Client opt number is:${clientOtpCellNumber}");
 
     final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId) {
       print("Auto retrieve expire");
@@ -192,7 +192,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
       });
     };
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: userOtpCellNumber,
+      phoneNumber: clientOtpCellNumber,
       timeout: Duration(seconds: 2),
       verificationCompleted: verifiedSuccess,
       verificationFailed: verifyFailed,
@@ -266,7 +266,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
 
     String url = signupApi;
 
-    String json = '{"UserName":"${widget.userName}","UserDateOfBirth":"${widget.userDateOfBirth}","UserCellNumber":"${widget.userCellNumber}","UserPassword":"${widget.userPassword}"}';
+    String json = '{"ClientName":"${widget.clientName}","ClientDateOfBirth":"${widget.clientDateOfBirth}","ClientCellNumber":"${widget.clientCellNumber}","ClientPassword":"${widget.clientPassword}"}';
 
     Response response = await post(url, body: json);
 

@@ -17,14 +17,14 @@ class _LoginRegisterState extends State<LoginRegister> {
   final _loginForm = GlobalKey<FormState>();
   final _registerForm = GlobalKey<FormState>();
 
-  TextEditingController _userName = TextEditingController();
-  TextEditingController _userDateOfBirth = TextEditingController();
-  TextEditingController _userLoginPolicy = TextEditingController(text:"Please read correct login policy");
-  TextEditingController _userCellNumber = TextEditingController();
-  TextEditingController _userPassword = TextEditingController();
+  TextEditingController _clientName = TextEditingController();
+  TextEditingController _clientDateOfBirth = TextEditingController();
+  TextEditingController _clientLoginPolicy = TextEditingController(text:"Please read correct login policy");
+  TextEditingController _clientCellNumber = TextEditingController();
+  TextEditingController _clientPassword = TextEditingController();
 
-  TextEditingController _loginUserCellNumber = TextEditingController();
-  TextEditingController _loginUserPassword = TextEditingController();
+  TextEditingController _loginClientCellNumber = TextEditingController();
+  TextEditingController _loginClientPassword = TextEditingController();
 
   var dbMaskFormatter = new MaskTextInputFormatter(mask: '##-##-####', filter: { "#": RegExp(r'[0-9]') });
   String convertDateOfBirth  = "";
@@ -203,7 +203,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Login ID"),
                   //login id
                   TextFormField(
-                    controller: _loginUserCellNumber,
+                    controller: _loginClientCellNumber,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Login Id should not be empty';
@@ -228,7 +228,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(11),
-                        WhitelistingTextInputFormatter.digitsOnly
+                        WhitelistingTextInputFormatter.digitsOnly,
                       ],
                   ),
 
@@ -239,7 +239,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Password"),
                   //password
                   TextFormField(
-                    controller: _loginUserPassword,
+                    controller: _loginClientPassword,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Password should not be empty';
@@ -336,7 +336,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Full Name"),
                   //Full Name
                   TextFormField(
-                    controller: _userName,
+                    controller: _clientName,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Full name should not be empty';
@@ -364,7 +364,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Date of Birth"),
                   //date of birth
                   TextFormField(
-                    controller: _userDateOfBirth,
+                    controller: _clientDateOfBirth,
 
                       validator: (value) {
                         if (value.isEmpty) {
@@ -405,7 +405,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   //Login ID Policy
                   TextFormField(
                     enabled: false,
-                    controller: _userLoginPolicy,
+                    controller: _clientLoginPolicy,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]),
@@ -428,7 +428,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Cell Phone Number"),
                   //Cell Phone Number
                   TextFormField(
-                    controller: _userCellNumber,
+                    controller: _clientCellNumber,
 
                       validator: (value) {
                         if (value.isEmpty) {
@@ -466,7 +466,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   Text("Password"),
                   //Cell Phone Number
                   TextFormField(
-                      controller: _userPassword,
+                      controller: _clientPassword,
 
                       validator: (value) {
                         if (value.isEmpty) {
@@ -563,7 +563,7 @@ class _LoginRegisterState extends State<LoginRegister> {
 
 
     String url = checkMobileNumberApi;
-    String json = '{"UserCellNumber":"${_userCellNumber.text}"}';
+    String json = '{"ClientCellNumber":"${_clientCellNumber.text}"}';
     Response response = await post(url, body: json);
 
     print("status code is:${response.statusCode}");
@@ -574,11 +574,11 @@ class _LoginRegisterState extends State<LoginRegister> {
 
         Navigator.of(context, rootNavigator: true).pop();
 
-        convertDateOfBirth = _userDateOfBirth.text.substring(6,10) + "-" + _userDateOfBirth.text.substring(3,5) + "-" + _userDateOfBirth.text.substring(0,2);
+        convertDateOfBirth = _clientDateOfBirth.text.substring(6,10) + "-" + _clientDateOfBirth.text.substring(3,5) + "-" + _clientDateOfBirth.text.substring(0,2);
         print("Convert date of birth:${convertDateOfBirth}");
 
         print("go to otp verification");
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VerifyPhoneNumber(userName:_userName.text,userDateOfBirth:convertDateOfBirth,userCellNumber:_userCellNumber.text,userPassword:_userPassword.text)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VerifyPhoneNumber(clientName:_clientName.text,clientDateOfBirth:convertDateOfBirth,clientCellNumber:_clientCellNumber.text,clientPassword:_clientPassword.text)));
 
       }
 
@@ -587,7 +587,7 @@ class _LoginRegisterState extends State<LoginRegister> {
 
         Navigator.of(context, rootNavigator: true).pop();
 
-        _userCellNumber.text = "";
+        _clientCellNumber.text = "";
 
 
         showDialog(
@@ -630,7 +630,7 @@ class _LoginRegisterState extends State<LoginRegister> {
         });
 
     String url = loginApi;
-    String json = '{"UserCellNumber":"${_loginUserCellNumber.text}","UserPassword":"${_loginUserPassword.text}"}';
+    String json = '{"ClientCellNumber":"${_loginClientCellNumber.text}","ClientPassword":"${_loginClientPassword.text}"}';
     Response response = await post(url, body: json);
     print("status code is:${response.statusCode}");
     print("response body is:${response.body}");
@@ -666,14 +666,14 @@ class _LoginRegisterState extends State<LoginRegister> {
         Navigator.of(context, rootNavigator: true).pop();
         loginInfo = jsonDecode(response.body);
         print("Login Information:${loginInfo}");
-        print("User Id:${int.parse(loginInfo['userid'])}");
-        print("User Name:${loginInfo['username']}");
-        print("User Date Of birth:${loginInfo['userdateofbirth']}");
-        print("User Cell Number:${loginInfo['usercellnumber']}");
-        print("User Password:${loginInfo['userpassword']}");
+        print("Client Id:${int.parse(loginInfo['clientid'])}");
+        print("Client Name:${loginInfo['clientname']}");
+        print("Client Date Of birth:${loginInfo['clientdateofbirth']}");
+        print("Client Cell Number:${loginInfo['clientcellnumber']}");
+        print("Client Password:${loginInfo['clientpassword']}");
 
 
-        await shPref.SetUserInformation(int.parse(loginInfo['userid']) , loginInfo['username'] , loginInfo['userdateofbirth'] , loginInfo['usercellnumber'] , loginInfo['userpassword']);
+        await shPref.SetClientInformation(int.parse(loginInfo['clientid']) , loginInfo['clientname'] , loginInfo['clientdateofbirth'] , loginInfo['clientcellnumber'] , loginInfo['clientpassword']);
 
 
         Navigator.pushReplacementNamed(context, 'BottomBars');
