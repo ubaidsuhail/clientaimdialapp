@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:clientaimdialapp/registerationscreens/loginregister.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class VerifyPhoneNumber extends StatefulWidget {
 String clientName;
 String clientDateOfBirth;
@@ -46,6 +47,12 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
     return WillPopScope(
       child:Scaffold(
         appBar: AppBar(
+          leading: GestureDetector(
+            onTap: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginRegister()));
+            },
+            child: Icon(Icons.arrow_back),
+          ),
           backgroundColor: Colors.teal,
           title: Text("Verify Phone Number"),
         ),
@@ -260,7 +267,10 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
         context: context,
         builder: (context) {
           return Center(
-            child: CircularProgressIndicator(),
+            child:SpinKitFadingCircle(
+              color: Colors.white,
+              size: 50.0,
+            ),
           );
         });
 

@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:clientaimdialapp/registerationscreens/verifyphonenumber.dart';
 import 'dart:convert';
 import 'package:clientaimdialapp/datamodels/sharedpreferenceapp.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class LoginRegister extends StatefulWidget {
   @override
   _LoginRegisterState createState() => _LoginRegisterState();
@@ -555,7 +556,10 @@ class _LoginRegisterState extends State<LoginRegister> {
         context: context,
         builder: (context) {
           return Center(
-                child:CircularProgressIndicator(),
+            child:SpinKitFadingCircle(
+              color: Colors.white,
+              size: 50.0,
+            ),
               );
         });
 
@@ -625,7 +629,10 @@ class _LoginRegisterState extends State<LoginRegister> {
         context: context,
         builder: (context) {
           return Center(
-            child:CircularProgressIndicator(),
+            child:SpinKitFadingCircle(
+              color: Colors.white,
+              size: 50.0,
+            ),
           );
         });
 
