@@ -274,7 +274,7 @@ class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
           );
         });
 
-    String url = signupApi;
+    String url = signUpApi;
 
     String json = '{"ClientName":"${widget.clientName}","ClientDateOfBirth":"${widget.clientDateOfBirth}","ClientCellNumber":"${widget.clientCellNumber}","ClientPassword":"${widget.clientPassword}"}';
 
