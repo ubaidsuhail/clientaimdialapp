@@ -453,7 +453,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                       hintStyle: TextStyle(color: Colors.green[800]),
                     ),
                     keyboardType: TextInputType.number,
-                      inputFormatters: [
+                    inputFormatters: [
                         LengthLimitingTextInputFormatter(11),
                         WhitelistingTextInputFormatter.digitsOnly
                       ]

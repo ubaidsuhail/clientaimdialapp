@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clientaimdialapp/services/clientservice.dart';
 import 'package:clientaimdialapp/services/servicesname.dart';
+import 'package:clientaimdialapp/registerationscreens/updateprofile.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -24,8 +25,8 @@ class _BottomBarState extends State<BottomBar> with SingleTickerProviderStateMix
         controller: tabs,
         children: <Widget>[
           ClientService(),
-         ServicesName(),
-          new Center(child:new Text('Welcome to Close'),),
+          ServicesName(),
+          UpdateProfile(),
         ],
       ),
 
