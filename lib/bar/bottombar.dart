@@ -32,7 +32,8 @@ class _BottomBarState extends State<BottomBar> with SingleTickerProviderStateMix
 
     bottomNavigationBar: new Material(
     //color: Colors.blue,
-      elevation: 5.0,
+      elevation: 7.0,
+          color: Colors.white,
           child: new TabBar(
           controller: tabs,
             indicatorColor:Colors.transparent,
