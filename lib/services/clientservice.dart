@@ -1,5 +1,7 @@
+import 'package:clientaimdialapp/services/viewinsight.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 class ClientService extends StatefulWidget {
   @override
@@ -175,7 +177,7 @@ class _ClientServiceState extends State<ClientService> {
                               width:MediaQuery.of(context).size.width*0.9,
                               margin: EdgeInsets.only(left: 8.0),
                               child:AutoSizeText(
-                                '7 out of 15 steps are completed',
+                                '8 out of 15 steps are completed',
                                 style: TextStyle(fontSize: 14.0,color: Colors.grey),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -189,6 +191,7 @@ class _ClientServiceState extends State<ClientService> {
                               child:GestureDetector(
                               onTap: (){
                                 Navigator.pushNamed(context, "ViewInsights");
+                                //Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ViewInsight()));
                               },
                               child:Text("View Insights",style: TextStyle(color: Colors.blue),)
                               ),
